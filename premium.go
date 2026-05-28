@@ -9,13 +9,13 @@ import (
 
 // Gather the premium plugin semantic versions currently installed and available
 func subscription() string {
-	var polylangInstalled = current("premium-plugin/polylang-pro")
-	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var spotlightInstalled = current("freemius/spotlight-social-photo-feeds-premium")
-	var polylangAvailable = latest(changelogs.Poly, " (2")
-	var exportAvailable = latest(changelogs.WPExport, "<h4>")
+	var exportInstalled = current("premium-plugin/wp-all-export-pro")
+	var polylangInstalled = current("premium-plugin/polylang-pro")
 	var spotlightAvailable = latest(changelogs.Spotlight, "<h2>v")
-	collect := results(polylangInstalled, polylangAvailable, "polylang-pro") + results(exportInstalled, exportAvailable, "wp-all-export-pro") + results(spotlightInstalled, spotlightAvailable, "spotlight-social-photo-feeds-premium")
+	var exportAvailable = latest(changelogs.WPExport, "<h4>")
+	var polylangAvailable = latest(changelogs.Poly, " (2")
+	collect := results(spotlightInstalled, spotlightAvailable, "spotlight-social-photo-feeds-premium") + results(exportInstalled, exportAvailable, "wp-all-export-pro") + results(polylangInstalled, polylangAvailable, "polylang-pro")
 	return collect
 }
 
