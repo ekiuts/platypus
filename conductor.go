@@ -66,7 +66,7 @@ func wpcli(x, y, z string) []string {
 
 // Format the output of plugin updates
 func packagist(r []string) string {
-	var value strings.Builder
+	var result string
 
 	for a := 1; a < 4; a++ {
 		r = slices.Delete(r, 0, 0+1)
@@ -75,13 +75,13 @@ func packagist(r []string) string {
 	for i := 0; i < len(r)-1; i++ {
 		switch r[i] {
 		case "gravityforms":
-			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
+			result = ("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		default:
-			value.WriteString("wpackagist-plugin/" + r[i] + ":" + r[i+2] + "\n")
+			result = ("wpackagist-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		}
 		i += 2
 	}
-	return strings.TrimRight(value.String(), " ")
+	return strings.TrimRight(result, " ")
 }
 
 // Alphabetize the update list before emailing it
