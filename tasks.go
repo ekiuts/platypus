@@ -66,7 +66,7 @@ func wpcli(x, y, z string) []string {
 
 // Format the output of plugin updates
 func packagist(r []string) string {
-	var result string
+	var value strings.Builder
 
 	for a := 1; a < 4; a++ {
 		r = slices.Delete(r, 0, 0+1)
@@ -75,13 +75,21 @@ func packagist(r []string) string {
 	for i := 0; i < len(r)-1; i++ {
 		switch r[i] {
 		case "gravityforms":
-			result = ("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
+			value.WriteString("premium-plugin/")
+			value.WriteString(r[i])
+			value.WriteString(":")
+			value.WriteString(r[i+2])
+			value.WriteString("\n")
 		default:
-			result = ("wpackagist-plugin/" + r[i] + ":" + r[i+2] + "\n")
+			value.WriteString("wpackagist-plugin/")
+			value.WriteString(r[i])
+			value.WriteString(":")
+			value.WriteString(r[i+2])
+			value.WriteString("\n")
 		}
 		i += 2
 	}
-	return strings.TrimRight(result, " ")
+	return strings.TrimRight(value.String(), " ")
 }
 
 // Alphabetize the update list before emailing it
@@ -95,7 +103,7 @@ func alphabetize(list string) string {
 // Catch any PHP errors which could interupt the program
 func gotcha(output []string) {
 	for i := range output {
-		if strings.Contains(output[i], "Notice:") {
+		if strings.Contains(output[i], "PHP Notice:") {
 			alert("PHP Error on server interupting core functionality -")
 		}
 	}
