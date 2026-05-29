@@ -33,7 +33,7 @@ func plugin() {
 	premix := packagist(ups) + subscription() + wpcore()
 	body := alphabetize(premix)
 	if len(body) > 0 {
-		err := os.WriteFile("/data/automation/lists/updates.txt", []byte(body+"\n"), 0666)
+		err := os.WriteFile(lists+"updates.txt", []byte(body+"\n"), 0666)
 		inspect(err)
 		mailing(body)
 	} else {

@@ -54,7 +54,7 @@ go.work.sum
 *.zip
 
 # Exclude project specific files
-main.yaml
+test.json
 
 # Exclude Recycle Bin used on file shares
 $RECYCLE.BIN/

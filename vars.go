@@ -36,6 +36,7 @@ const (
 	BGRed   Color  = "\033[41m"
 	bv      string = "1.0.0"
 	halt    string = "program halted"
+	lists   string = "/data/automation/lists/"
 	meta    string = "/data/automation/jsons/"
 	temp    string = "/data/automation/temp/"
 )

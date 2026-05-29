@@ -1,0 +1,8 @@
+{
+    "address": "WordPress base url (no leading protocol)",
+    "install": "Path on the server to the WordPress install",
+    "recipient": "Email recipient(s) address(es)",
+    "sender": "Address of Email sender ",
+    "server": "Name of WordPress hosting server",
+    "user": "User authorized to run the program"
+}

@@ -4,7 +4,7 @@ Platypus is a WordPress plugin update search tool. It runs the standard `wp plug
 
 ![Platypus](platypus.webp)
 
-``` zsh
+``` txt
 Below is the current list of plugins requiring updates for test.blog.ca
 
 wpackagist-plugin/gutenberg:22.9.0
@@ -18,17 +18,27 @@ wpackagist-theme/twentytwentyfive:1.4
 
 The [Go Programming Language](https://go.dev "Build simple, secure, scalable systems with Go") installed to enable building executables from source code.
 
-Creation of a `test.json` file with the following values as per your environment:
+An selection of `json` files (see `jsons` folder for reference).
 
-``` json
-{
-    "address": "WordPress base url (no leading protocol)",
-    "install": "Path on the server to the WordPress install",
-    "recipient": "Email recipient(s) address(es)",
-    "sender": "Address of Email sender ",
-    "server": "Name of WordPress hosting server",
-    "user": "User authorized to run the program"
-}
+## 📂 Project Structure
+
+Inside of your Bowerbird project, you'll see the following folders and files:
+
+``` zsh
+.
+├── jsons/
+│   ├── changelogs.json
+│   ├── test.json.example
+├── .gitignore
+├── go.mod
+├── LICENSE.md
+├── main.go
+├── platypus.webp
+├── premium.go
+├── README.md
+├── tasks.go
+├── tools.go
+└── vars.go
 ```
 
 ## 🚧 Build
@@ -36,22 +46,15 @@ Creation of a `test.json` file with the following values as per your environment
 Before building the application, change the value of the `meta` and `temp` constants to reflect your environment:
 
 ``` go
+lists   string = "/data/automation/lists/"
 meta     string = "/data/automation/jsons/"
 temp     string = "/data/automation/temp/"
 ```
 
-Then, from the root folder containing `main.go`, use the command that matches your environment:
-
-### Windows & Mac:
+Then, from the root folder containing `main.go`:
 
 ``` zsh
 go build -o [name] .
-```
-
-### Linux:
-
-``` zsh
-GOOS=linux GOARCH=amd64 go build -o [name] .
 ```
 
 ## 🏃 Run
