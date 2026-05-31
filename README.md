@@ -24,7 +24,7 @@ An selection of `json` files (see `jsons` folder for reference).
 
 Inside of your Bowerbird project, you'll see the following folders and files:
 
-``` zsh
+``` txt
 .
 ├── jsons/
 │   ├── changelogs.json
@@ -60,7 +60,7 @@ go build -o [name] .
 ## 🏃 Run
 
 ``` zsh
-./platypus -r
+./platypus
 ```
 
 ## 🎏 Available Flags
@@ -68,7 +68,6 @@ go build -o [name] .
 | Command               | Action                      |
 |:----------------------|:----------------------------|
 |    `-h, --help`       |   Help information          |
-|    `-r, --run`        |   Run program               |
 |    `-v, --version`    |   Display program version   |
 
 ## 🎫 License

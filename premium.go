@@ -98,7 +98,5 @@ func regmatch(p string) string {
 	} else if tri.MatchString(p) {
 		match = tri.FindAllString(p, -1)
 	}
-	// result := strings.Join(match, " ")
-	// return result
 	return match[0]
 }

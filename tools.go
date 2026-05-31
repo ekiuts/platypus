@@ -9,6 +9,22 @@ import (
 	"os/exec"
 )
 
+// Provide and highlight an informational message
+func inform(message string) {
+	Yellow.Printf("%s", "** ")
+	fmt.Print(message)
+	Yellow.Println(" **")
+}
+
+// Print a colourized error message
+func alert(message string) {
+	Red.Printf("\n%s", "Error: ")
+	fmt.Printf("%s", message)
+	BGRed.Println(halt)
+	inform("Use -h to display help information")
+	os.Exit(0)
+}
+
 // Remove files or directories
 func cleanup(cut string) {
 	inspect(os.Remove(cut))
