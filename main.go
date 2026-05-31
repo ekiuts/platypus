@@ -32,7 +32,7 @@ func help() {
 	Green.Printf("%s", "  -v, --version")
 	fmt.Println("	   Display Program Version")
 	Yellow.Println("\nRun:")
-	fmt.Println("  From the folder conatining your compiled executable, run:")
+	fmt.Println("  From the folder containing your compiled executable, run:")
 	Green.Printf("%s", "    platypus")
 	Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
