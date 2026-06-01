@@ -10,18 +10,6 @@ import (
 	"strings"
 )
 
-// Test for an optional flag
-func flags() string {
-	var flag string
-
-	if len(os.Args) == 1 {
-		flag = "--search"
-	} else {
-		flag = os.Args[1]
-	}
-	return flag
-}
-
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
 	for index, element := range jsons {

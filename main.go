@@ -1,39 +1,51 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 )
 
 // Launch the program and execute as directed by the supplied flag
 func main() {
-	flag := flags()
-	logo()
+	helpshort := flag.Bool("h", false, "Display help information")
+	helplong := flag.Bool("help", false, "Display help information")
+	searchshort := flag.Bool("s", false, "Display help information")
+	searchlong := flag.Bool("search", false, "Display help information")
+	versionshort := flag.Bool("v", false, "Display Program Version")
+	versionlong := flag.Bool("version", false, "Display Program Version")
+	flag.Parse()
 
-	switch flag {
-	case "-h", "--help":
-		help()
-	case "-s", "--search":
-		credits()
-		serialize()
-		plugin()
-	case "-v", "--version":
-	default:
-		alert("Unknown argument(s) - ")
+	if flag.NFlag() > 0 {
+		switch {
+		case *helpshort, *helplong:
+			help()
+		case *searchshort, *searchlong:
+			logo()
+			credits()
+			serialize()
+			plugin()
+		case *versionshort, *versionlong:
+			Magenta.Println(bv)
+		}
+	} else {
+		alert("No arguments found - ")
 	}
 }
 
 // Print the help information
 func help() {
 	Yellow.Println("\nUsage:")
-	fmt.Println("  [program] [optional flag]")
+	fmt.Println("  [program] [flag]")
 	Yellow.Println("\n Flags:")
-	Green.Printf("%s", "  -h, --help")
+	Green.Printf("%s", "  -h, -help")
 	fmt.Println("	   Help Information")
-	Green.Printf("%s", "  -v, --version")
+	Green.Printf("%s", "  -s, -search")
+	fmt.Println("	   Run main program")
+	Green.Printf("%s", "  -v, -version")
 	fmt.Println("	   Display Program Version")
 	Yellow.Println("\nRun:")
 	fmt.Println("  From the folder containing your compiled executable, run:")
-	Green.Printf("%s", "    platypus")
+	Green.Printf("%s", "    platypus -s")
 	Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
 	Green.Println("    https://github.com/farghul/platypus.git")
