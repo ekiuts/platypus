@@ -47,8 +47,8 @@ Before building the application, change the value of the `meta` and `temp` const
 
 ``` go
 lists   string = "/data/automation/lists/"
-meta     string = "/data/automation/jsons/"
-temp     string = "/data/automation/temp/"
+meta    string = "/data/automation/jsons/"
+temp    string = "/data/automation/temp/"
 ```
 
 Then, from the root folder containing `main.go`:
@@ -60,15 +60,16 @@ go build -o [name] .
 ## 🏃 Run
 
 ``` zsh
-./platypus
+./platypus -s
 ```
 
 ## 🎏 Available Flags
 
 | Command               | Action                      |
 |:----------------------|:----------------------------|
-|    `-h, --help`       |   Help information          |
-|    `-v, --version`    |   Display program version   |
+|    `-h, -help`        |   Help information          |
+|    `-s, -search`      |   Run main program          |
+|    `-v, -version`     |   Display program version   |
 
 ## 🎫 License
 
