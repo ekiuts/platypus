@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+
+	"github.com/farghul/platypus/internal"
+	"github.com/farghul/platypus/workers"
 )
 
 // Launch the program and execute as directed by the supplied flag
@@ -22,41 +25,41 @@ func main() {
 		case *searchshort, *searchlong:
 			logo()
 			credits()
-			serialize()
-			plugin()
+			workers.Serialize()
+			workers.Plugin()
 		case *versionshort, *versionlong:
-			Magenta.Println(bv)
+			internal.Magenta.Println(internal.BV)
 		}
 	} else {
-		alert("No arguments found - ")
+		internal.Alert("No arguments found - ")
 	}
 }
 
 // Print the help information
 func help() {
-	Yellow.Println("\nUsage:")
+	internal.Yellow.Println("\nUsage:")
 	fmt.Println("  [program] [flag]")
-	Yellow.Println("\n Flags:")
-	Green.Printf("%s", "  -h, -help")
+	internal.Yellow.Println("\n Flags:")
+	internal.Green.Printf("%s", "  -h, -help")
 	fmt.Println("	   Help Information")
-	Green.Printf("%s", "  -s, -search")
+	internal.Green.Printf("%s", "  -s, -search")
 	fmt.Println("	   Run main program")
-	Green.Printf("%s", "  -v, -version")
+	internal.Green.Printf("%s", "  -v, -version")
 	fmt.Println("	   Display Program Version")
-	Yellow.Println("\nRun:")
+	internal.Yellow.Println("\nRun:")
 	fmt.Println("  From the folder containing your compiled executable, run:")
-	Green.Printf("%s", "    platypus -s")
-	Yellow.Println("\nHelp:")
+	internal.Green.Printf("%s", "    platypus -s")
+	internal.Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
-	Green.Println("    https://github.com/farghul/platypus.git")
+	internal.Green.Println("    https://github.com/farghul/platypus.git")
 }
 
 func logo() {
-	Magenta.Println("▗▄▄▖ ▗▖    ▗▄▖▗▄▄▄▖▗▖  ▗▖▗▄▄▖ ▗▖ ▗▖ ▗▄▄▖")
-	Magenta.Println("▐▌ ▐▌▐▌   ▐▌ ▐▌ █   ▝▚▞▘ ▐▌ ▐▌▐▌ ▐▌▐▌   ")
-	Magenta.Println("▐▛▀▘ ▐▌   ▐▛▀▜▌ █    ▐▌  ▐▛▀▘ ▐▌ ▐▌ ▝▀▚▖")
-	Magenta.Println("▐▌   ▐▙▄▄▖▐▌ ▐▌ █    ▐▌  ▐▌   ▝▚▄▞▘▗▄▄▞▘")
-	Magenta.Println(bv)
+	internal.Magenta.Println("▗▄▄▖ ▗▖    ▗▄▖▗▄▄▄▖▗▖  ▗▖▗▄▄▖ ▗▖ ▗▖ ▗▄▄▖")
+	internal.Magenta.Println("▐▌ ▐▌▐▌   ▐▌ ▐▌ █   ▝▚▞▘ ▐▌ ▐▌▐▌ ▐▌▐▌   ")
+	internal.Magenta.Println("▐▛▀▘ ▐▌   ▐▛▀▜▌ █    ▐▌  ▐▛▀▘ ▐▌ ▐▌ ▝▀▚▖")
+	internal.Magenta.Println("▐▌   ▐▙▄▄▖▐▌ ▐▌ █    ▐▌  ▐▌   ▝▚▄▞▘▗▄▄▞▘")
+	internal.Magenta.Println(internal.BV)
 }
 
 func credits() {

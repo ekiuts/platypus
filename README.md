@@ -2,8 +2,6 @@
 
 Platypus is a WordPress plugin update search tool. It runs the standard `wp plugin list --update=available` command as well as some custom searches to grab those hard to find plugin updates.
 
-![Platypus](platypus.webp)
-
 ``` txt
 Below is the current list of plugins requiring updates for test.blog.ca
 
@@ -22,23 +20,25 @@ An selection of `json` files (see `jsons` folder for reference).
 
 ## 📂 Project Structure
 
-Inside of your Bowerbird project, you'll see the following folders and files:
+Inside of your Platypus project, you'll see the following folders and files:
 
 ``` txt
 .
+├── cmd/
+│   ├── main.go
+├── internal/
+│   ├── tools.go
+│   ├── vars.go
 ├── jsons/
 │   ├── changelogs.json
 │   ├── test.json.example
+├── workers/
+│   ├── premium.go
+│   ├── tasks.go
 ├── .gitignore
 ├── go.mod
 ├── LICENSE.md
-├── main.go
-├── platypus.webp
-├── premium.go
 ├── README.md
-├── tasks.go
-├── tools.go
-└── vars.go
 ```
 
 ## 🚧 Build
@@ -54,7 +54,7 @@ temp    string = "/data/automation/temp/"
 Then, from the root folder containing `main.go`:
 
 ``` zsh
-go build -o [name] .
+go build -o platypus cmd/main.go
 ```
 
 ## 🏃 Run

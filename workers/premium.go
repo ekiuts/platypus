@@ -1,10 +1,12 @@
-package main
+package workers
 
 import (
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/farghul/platypus/internal"
 )
 
 // Gather the premium plugin semantic versions currently installed and available
@@ -12,9 +14,9 @@ func subscription() string {
 	var spotlightInstalled = current("freemius/spotlight-social-photo-feeds-premium")
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var polylangInstalled = current("premium-plugin/polylang-pro")
-	var spotlightAvailable = latest(changelogs.Spotlight, "<h2>v")
-	var exportAvailable = latest(changelogs.WPExport, "<h4>")
-	var polylangAvailable = latest(changelogs.Poly, "<pre")
+	var spotlightAvailable = latest(internal.News.Spotlight, "<h2>v")
+	var exportAvailable = latest(internal.News.WPExport, "<h4>")
+	var polylangAvailable = latest(internal.News.Poly, "<pre")
 	collect := results(spotlightInstalled, spotlightAvailable, "spotlight-social-photo-feeds-premium") + results(exportInstalled, exportAvailable, "wp-all-export-pro") + results(polylangInstalled, polylangAvailable, "polylang-pro")
 	return collect
 }
@@ -43,19 +45,19 @@ func results(current, update, plugin string) string {
 
 // Find the current semantic version of our premium plugins from the composer.json file
 func current(p string) string {
-	where := strings.TrimSuffix(environment.Install, "web/wp") + "composer.json"
-	what := concat("ssh", "-T", environment.User+"@"+environment.Server, " cat "+where)
-	inspect(os.WriteFile(remains[1], what, 0666))
-	grep, _ := capture("grep", p, remains[1])
+	where := strings.TrimSuffix(internal.Ecosystem.Install, "web/wp") + "composer.json"
+	what := internal.Concat("ssh", "-T", internal.Ecosystem.User+"@"+internal.Ecosystem.Server, " cat "+where)
+	internal.Inspect(os.WriteFile(internal.Remains[1], what, 0666))
+	grep, _ := internal.Capture("grep", p, internal.Remains[1])
 	return regmatch(strings.TrimSpace(string(grep)))
 }
 
 // Find the latest semantic version of our premium plugins from the applicable websites
 func latest(u, g string) string {
-	capture("curl", "-s", u, "-o", remains[2])
-	grep, _ := capture("grep", g, remains[2])
-	inspect(os.WriteFile(remains[0], grep, 0666))
-	head, _ := capture("head", "-n 1", remains[0])
+	internal.Capture("curl", "-s", u, "-o", internal.Remains[2])
+	grep, _ := internal.Capture("grep", g, internal.Remains[2])
+	internal.Inspect(os.WriteFile(internal.Remains[0], grep, 0666))
+	head, _ := internal.Capture("head", "-n 1", internal.Remains[0])
 	return regmatch(strings.TrimSpace(string(head)))
 }
 

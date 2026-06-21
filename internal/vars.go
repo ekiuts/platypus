@@ -1,4 +1,6 @@
-package main
+package internal
+
+import "fmt"
 
 type WPLatest struct {
 	Offers []struct {
@@ -34,17 +36,27 @@ const (
 	Yellow  Color  = "\033[33m"
 	Magenta Color  = "\033[35m"
 	BGRed   Color  = "\033[41m"
-	bv      string = "1.0.0"
+	BV      string = "1.0.0"
 	halt    string = "program halted"
-	lists   string = "/data/automation/lists/"
+	Lists   string = "/data/automation/lists/"
 	meta    string = "/data/automation/jsons/"
 	temp    string = "/data/automation/temp/"
 )
 
 var (
-	version     WPLatest
-	changelogs  Changelogs
-	environment Environment
-	jsons       = []string{meta + "changelogs.json", meta + "test.json"}
-	remains     = []string{temp + "grepped.txt", temp + "temp.json", temp + "webscrape.txt"}
+	Version   WPLatest
+	News      Changelogs
+	Ecosystem Environment
+	Jsons     = []string{meta + "changelogs.json", meta + "test.json"}
+	Remains   = []string{temp + "grepped.txt", temp + "temp.json", temp + "webscrape.txt"}
 )
+
+// Println function for colourized text
+func (c Color) Println(text string) {
+	fmt.Println(string(c) + text + Reset)
+}
+
+// Printf function for colourized text
+func (c Color) Printf(format string, a ...any) {
+	fmt.Printf(string(c)+format+Reset, a...)
+}

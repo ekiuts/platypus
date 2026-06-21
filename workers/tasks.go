@@ -1,4 +1,4 @@
-package main
+package workers
 
 import (
 	"encoding/json"
@@ -8,57 +8,59 @@ import (
 	"slices"
 	"sort"
 	"strings"
+
+	"github.com/farghul/platypus/internal"
 )
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
-func serialize() {
-	for index, element := range jsons {
+func Serialize() {
+	for index, element := range internal.Jsons {
 		data, err := os.ReadFile(element)
-		inspect(err)
+		internal.Inspect(err)
 		switch index {
 		case 0:
-			err := json.Unmarshal(data, &changelogs)
-			inspect(err)
+			err := json.Unmarshal(data, &internal.News)
+			internal.Inspect(err)
 		case 1:
-			err := json.Unmarshal(data, &environment)
-			inspect(err)
+			err := json.Unmarshal(data, &internal.Ecosystem)
+			internal.Inspect(err)
 		}
 	}
 }
 
 // Trigger the search for updates
-func plugin() {
+func Plugin() {
 	ups := wpcli("plugin", "list", "--update=available")
 	gotcha(ups)
 	premix := packagist(ups) + subscription() + wpcore()
 	body := alphabetize(premix)
 	if len(body) > 0 {
-		err := os.WriteFile(lists+"updates.txt", []byte(body+"\n"), 0666)
-		inspect(err)
-		mailing(body)
+		err := os.WriteFile(internal.Lists+"updates.txt", []byte(body+"\n"), 0666)
+		internal.Inspect(err)
+		internal.Mailing(body)
 	} else {
-		fmt.Println("No updates found for " + environment.Address)
+		fmt.Println("No updates found for " + internal.Ecosystem.Address)
 	}
-	for _, v := range remains {
-		cleanup(v)
+	for _, v := range internal.Remains {
+		internal.Cleanup(v)
 	}
 }
 
 // Filter the JSON blob response to get the latest version
 func sift() string {
-	data := get("https://api.wordpress.org/core/version-check/1.7/")
-	err := json.Unmarshal(data, &version)
-	inspect(err)
-	if len(version.Offers) == 0 {
+	data := internal.Get("https://api.wordpress.org/core/version-check/1.7/")
+	err := json.Unmarshal(data, &internal.Version)
+	internal.Inspect(err)
+	if len(internal.Version.Offers) == 0 {
 		log.Fatal("no offers")
 	}
-	current := version.Offers[0].Current
+	current := internal.Version.Offers[0].Current
 	return current
 }
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	c, _ := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment.User+"@"+environment.Server+":"+environment.Install, "--url="+environment.Address, "--skip-plugins", "--skip-themes")
+	c, _ := internal.Capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+internal.Ecosystem.User+"@"+internal.Ecosystem.Server+":"+internal.Ecosystem.Install, "--url="+internal.Ecosystem.Address, "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r
@@ -104,7 +106,7 @@ func alphabetize(list string) string {
 func gotcha(output []string) {
 	for i := range output {
 		if strings.Contains(output[i], "PHP Notice:") {
-			alert("PHP Error on server interupting core functionality -")
+			internal.Alert("PHP Error on server interupting core functionality -")
 		}
 	}
 }

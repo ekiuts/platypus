@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ func inform(message string) {
 }
 
 // Print a colourized error message
-func alert(message string) {
+func Alert(message string) {
 	Red.Printf("\n%s", "Error: ")
 	fmt.Printf("%s", message)
 	BGRed.Println(halt)
@@ -26,44 +26,44 @@ func alert(message string) {
 }
 
 // Remove files or directories
-func cleanup(cut string) {
-	inspect(os.Remove(cut))
+func Cleanup(cut string) {
+	Inspect(os.Remove(cut))
 }
 
 // Run a terminal command, then capture and return the output as a byte
-func capture(task string, args ...string) ([]byte, error) {
+func Capture(task string, args ...string) ([]byte, error) {
 	return exec.Command(task, args...).CombinedOutput()
 }
 
 // Check for errors, halt the program if found, and log the result
-func inspect(err error) {
+func Inspect(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 // A generic GET request which captures the response
-func get(target string) []byte {
+func Get(target string) []byte {
 	resp, err := http.Get(target)
-	inspect(err)
+	Inspect(err)
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
-	inspect(err)
+	Inspect(err)
 
 	return body
 }
 
 // Run the Linux mail command and email the result to the configured recipent(s)
-func mailing(list string) {
-	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment.Address, "-r", "Delivery Cactuar <"+environment.Sender+">", environment.Recipient)
+func Mailing(list string) {
+	cmd := exec.Command("mail", "-s", "WordPress updates for "+Ecosystem.Address, "-r", "Delivery Cactuar <"+Ecosystem.Sender+">", Ecosystem.Recipient)
 	stdin, err := cmd.StdinPipe()
-	inspect(err)
+	Inspect(err)
 
 	go func() {
 		defer stdin.Close()
-		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment.Address+". Have a magical day!\n\n"+list)
-		inspect(err)
+		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+Ecosystem.Address+". Have a magical day!\n\n"+list)
+		Inspect(err)
 	}()
 
 	out, _ := cmd.CombinedOutput() // Necessary although valueless
@@ -72,27 +72,17 @@ func mailing(list string) {
 }
 
 // Pipe together commands using the exec.Command function
-func concat(method, flag, task, pipe string) []byte {
+func Concat(method, flag, task, pipe string) []byte {
 	cmd := exec.Command(method, flag, task)
 	stdin, err := cmd.StdinPipe()
-	inspect(err)
+	Inspect(err)
 
 	go func() {
 		defer stdin.Close()
 		_, err := io.WriteString(stdin, pipe)
-		inspect(err)
+		Inspect(err)
 	}()
 
 	out, _ := cmd.CombinedOutput()
 	return out
-}
-
-// Println function for colourized text
-func (c Color) Println(text string) {
-	fmt.Println(string(c) + text + Reset)
-}
-
-// Printf function for colourized text
-func (c Color) Printf(format string, a ...any) {
-	fmt.Printf(string(c)+format+Reset, a...)
 }
