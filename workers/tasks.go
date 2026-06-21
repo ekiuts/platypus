@@ -12,30 +12,16 @@ import (
 	"github.com/farghul/platypus/internal"
 )
 
-// Read the JSON files and Unmarshal the data into the appropriate Go structure
-func Serialize() {
-	for index, element := range internal.Jsons {
-		data, err := os.ReadFile(element)
-		internal.Inspect(err)
-		switch index {
-		case 0:
-			err := json.Unmarshal(data, &internal.News)
-			internal.Inspect(err)
-		case 1:
-			err := json.Unmarshal(data, &internal.Ecosystem)
-			internal.Inspect(err)
-		}
-	}
-}
-
 // Trigger the search for updates
 func Plugin() {
+	serialize()
 	ups := wpcli("plugin", "list", "--update=available")
 	gotcha(ups)
 	premix := packagist(ups) + subscription() + wpcore()
 	body := alphabetize(premix)
+
 	if len(body) > 0 {
-		err := os.WriteFile(internal.Lists+"updates.txt", []byte(body+"\n"), 0666)
+		err := os.WriteFile("/data/automation/lists/updates.txt", []byte(body+"\n"), 0666)
 		internal.Inspect(err)
 		internal.Mailing(body)
 	} else {
@@ -43,6 +29,22 @@ func Plugin() {
 	}
 	for _, v := range internal.Remains {
 		internal.Cleanup(v)
+	}
+}
+
+// Read the JSON files and Unmarshal the data into the appropriate Go structure
+func serialize() {
+	for index, element := range internal.Jsons {
+		data, err := os.ReadFile(element)
+		internal.Inspect(err)
+		switch index {
+		case 0:
+			err := json.Unmarshal(data, &internal.Changelog)
+			internal.Inspect(err)
+		case 1:
+			err := json.Unmarshal(data, &internal.Ecosystem)
+			internal.Inspect(err)
+		}
 	}
 }
 

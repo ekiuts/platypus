@@ -14,9 +14,9 @@ func subscription() string {
 	var spotlightInstalled = current("freemius/spotlight-social-photo-feeds-premium")
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var polylangInstalled = current("premium-plugin/polylang-pro")
-	var spotlightAvailable = latest(internal.News.Spotlight, "<h2>v")
-	var exportAvailable = latest(internal.News.WPExport, "<h4>")
-	var polylangAvailable = latest(internal.News.Poly, "<pre")
+	var spotlightAvailable = latest(internal.Changelog.Spotlight, "<h2>v")
+	var exportAvailable = latest(internal.Changelog.WPExport, "<h4>")
+	var polylangAvailable = latest(internal.Changelog.Poly, "<pre")
 	collect := results(spotlightInstalled, spotlightAvailable, "spotlight-social-photo-feeds-premium") + results(exportInstalled, exportAvailable, "wp-all-export-pro") + results(polylangInstalled, polylangAvailable, "polylang-pro")
 	return collect
 }

@@ -2,14 +2,14 @@ package internal
 
 import "fmt"
 
-type WPLatest struct {
+type Core struct {
 	Offers []struct {
 		Current string `json:"current"`
 	} `json:"offers"`
 }
 
-// Changelogs builds a collection of urls to target changelogs
-type Changelogs struct {
+// Agile builds a collection of urls to target changelogs
+type Agile struct {
 	ACFPro    string `json:"acfpro"`
 	Gravity   string `json:"gravity"`
 	Poly      string `json:"poly"`
@@ -18,6 +18,7 @@ type Changelogs struct {
 	WPExport  string `json:"wpexport"`
 }
 
+// Values specific tp the WordPress installation
 type Environment struct {
 	Address   string `json:"address"`
 	Install   string `json:"install"`
@@ -38,14 +39,13 @@ const (
 	BGRed   Color  = "\033[41m"
 	BV      string = "1.0.0"
 	halt    string = "program halted"
-	Lists   string = "/data/automation/lists/"
 	meta    string = "/data/automation/jsons/"
 	temp    string = "/data/automation/temp/"
 )
 
 var (
-	Version   WPLatest
-	News      Changelogs
+	Version   Core
+	Changelog Agile
 	Ecosystem Environment
 	Jsons     = []string{meta + "changelogs.json", meta + "test.json"}
 	Remains   = []string{temp + "grepped.txt", temp + "temp.json", temp + "webscrape.txt"}

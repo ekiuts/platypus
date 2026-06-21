@@ -25,7 +25,7 @@ func main() {
 		case *searchshort, *searchlong:
 			logo()
 			credits()
-			workers.Serialize()
+			// workers.Serialize()
 			workers.Plugin()
 		case *versionshort, *versionlong:
 			internal.Magenta.Println(internal.BV)

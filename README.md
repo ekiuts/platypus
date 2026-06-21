@@ -16,7 +16,7 @@ wpackagist-theme/twentytwentyfive:1.4
 
 The [Go Programming Language](https://go.dev "Build simple, secure, scalable systems with Go") installed to enable building executables from source code.
 
-An selection of `json` files (see `jsons` folder for reference).
+A pair of `json` files (see `jsons` folder for reference).
 
 ## 📂 Project Structure
 
@@ -46,7 +46,6 @@ Inside of your Platypus project, you'll see the following folders and files:
 Before building the application, change the value of the `meta` and `temp` constants to reflect your environment:
 
 ``` go
-lists   string = "/data/automation/lists/"
 meta    string = "/data/automation/jsons/"
 temp    string = "/data/automation/temp/"
 ```
@@ -68,7 +67,7 @@ go build -o platypus cmd/main.go
 | Command               | Action                      |
 |:----------------------|:----------------------------|
 |    `-h, -help`        |   Help information          |
-|    `-s, -search`      |   Run main program          |
+|    `-s, -search`      |   Run the main program      |
 |    `-v, -version`     |   Display program version   |
 
 ## 🎫 License
