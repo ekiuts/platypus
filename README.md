@@ -51,7 +51,7 @@ meta    string = "/data/automation/jsons/"
 temp    string = "/data/automation/temp/"
 ```
 
-Then, from the root folder containing `main.go`:
+Then, run the `go build` command:
 
 ``` zsh
 go build -o platypus cmd/main.go
