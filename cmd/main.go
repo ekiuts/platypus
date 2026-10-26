@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/farghul/platypus/internal"
-	"github.com/farghul/platypus/workers"
+	"github.com/ekiuts/platypus/internal"
+	"github.com/ekiuts/platypus/workers"
 )
 
 // Launch the program and execute as directed by the supplied flag
@@ -25,7 +25,6 @@ func main() {
 		case *searchshort, *searchlong:
 			logo()
 			credits()
-			// workers.Serialize()
 			workers.Plugin()
 		case *versionshort, *versionlong:
 			internal.Magenta.Println(internal.BV)
@@ -51,7 +50,7 @@ func help() {
 	internal.Green.Printf("%s", "    platypus -s")
 	internal.Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
-	internal.Green.Println("    https://github.com/farghul/platypus.git")
+	internal.Green.Println("    https://github.com/ekiuts/platypus.git")
 }
 
 func logo() {

@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/farghul/platypus/internal"
+	"github.com/ekiuts/platypus/internal"
 )
 
 // Trigger the search for updates

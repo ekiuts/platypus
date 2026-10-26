@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/farghul/platypus/internal"
+	"github.com/ekiuts/platypus/internal"
 )
 
 // Gather the premium plugin semantic versions currently installed and available
